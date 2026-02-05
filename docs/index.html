@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Subigya 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+margin: 0;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background: linear-gradient(135deg, #ff4e8b, #a64bf4);
+font-family: 'Segoe UI', sans-serif;
+color: white;
+text-align: center;
+overflow: hidden;
+}
+
+.card {
+background: rgba(255,255,255,0.15);
+padding: 30px 25px;
+border-radius: 20px;
+width: 90%;
+max-width: 350px;
+box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+z-index: 2;
+}
+
+.cat img {
+width: 140px;
+margin-bottom: 10px;
+}
+
+.buttons {
+margin-top: 25px;
+position: relative;
+height: 150px;
+}
+
+button {
+border: none;
+padding: 14px 28px;
+border-radius: 30px;
+font-size: 16px;
+cursor: pointer;
+transition: 0.3s ease;
+position: absolute;
+}
+
+#yesBtn {
+background: white;
+color: #ff4e8b;
+left: 50%;
+transform: translateX(-50%) scale(1);
+}
+
+#noBtn {
+background: #ff2e2e;
+color: white;
+top: 75px;
+left: 50%;
+transform: translateX(-50%);
+}
+
+.confetti {
+position: fixed;
+width: 8px;
+height: 8px;
+animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+from { transform: translateY(-10vh) rotate(0deg); }
+to { transform: translateY(110vh) rotate(720deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<div class="cat">
+<!-- 👋 Waving cat initially -->
+<img id="catImg" src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif">
+</div>
+
+<h1 id="question">Will you be my Valentine, Subigya? 💖</h1>
+
+<div class="buttons">
+<button id="yesBtn" onclick="yesClicked()">❤️ Yes</button>
+<button id="noBtn" onclick="noClicked()">❌ No</button>
+</div>
+</div>
+
+<audio id="heartBreak" src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-crying-heart-break-1116.mp3"></audio>
+<audio id="loveMusic" src="https://assets.mixkit.co/music/preview/mixkit-happy-love-song-493.mp3"></audio>
+
+<script>
+let noCount = 0;
+let yesScale = 1;
+
+function noClicked() {
+noCount++;
+
+document.getElementById("heartBreak").play();
+
+yesScale += 0.08;
+document.getElementById("yesBtn").style.transform =
+`translateX(-50%) scale(${yesScale})`;
+
+if (noCount === 1) {
+document.getElementById("catImg").src =
+"https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif";
+}
+
+if (noCount === 2) {
+document.getElementById("noBtn").innerText = "Think again";
+}
+
+if (noCount === 3) {
+document.getElementById("noBtn").innerText = "You are hurting me?";
+}
+
+if (noCount >= 4) {
+document.getElementById("noBtn").innerText =
+"Enough… I am crying now";
+document.getElementById("catImg").src =
+"https://media.giphy.com/media/OPU6wzx8JrHna/giphy.gif";
+}
+}
+
+function yesClicked() {
+document.getElementById("loveMusic").play();
+
+document.body.innerHTML = `
+<div style="
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+height:100vh;
+background:linear-gradient(135deg,#ff4e8b,#a64bf4);
+color:white;
+text-align:center;
+">
+<h1>I knew it, Subigya 💖</h1>
+
+<!-- 🙇 Kneeling cat -->
+
+
+<!-- 🐱🐱 Hugging / dancing cats -->
+<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+style="width:220px;margin-top:15px;">
+</div>`;
+
+launchConfetti();
+}
+
+function launchConfetti() {
+for (let i = 0; i < 140; i++) {
+const c = document.createElement("div");
+c.className = "confetti";
+c.style.left = Math.random() * 100 + "vw";
+c.style.background = `hsl(${Math.random()*360},100%,70%)`;
+c.style.animationDuration = 2 + Math.random() * 2 + "s";
+document.body.appendChild(c);
+setTimeout(() => c.remove(), 4000);
+}
+}
+</script>
+
+</body>
+</html>
